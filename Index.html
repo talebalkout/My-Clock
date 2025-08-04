@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2677.6">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+  </style>
+</head>
+<body>
+<p class="p1">&lt;!doctype html&gt;</p>
+<p class="p1">&lt;html lang="en"&gt;</p>
+<p class="p1">&lt;head&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;meta charset="utf-8" /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;meta name="viewport" content="width=device-width,initial-scale=1" /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;title&gt;Days until 3 Oct 2033&lt;/title&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;style&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>:root { --bg:#0f0f12; --fg:#e7e7ea; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>html,body { height:100%; margin:0; background:var(--bg); color:var(--fg); }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>body { display:grid; place-items:center; font:700 clamp(48px,12vw,160px)/1 system-ui,Segoe UI,Roboto,Arial,sans-serif; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.days { letter-spacing:0.02em; text-align:center; user-select:none; }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/style&gt;</p>
+<p class="p1">&lt;/head&gt;</p>
+<p class="p1">&lt;body&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="days" id="days"&gt;–&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;script&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>// Target date at local midnight on 3 Oct 2033.</p>
+<p class="p1"><span class="Apple-converted-space">    </span>// If you want Kuwait time specifically, use the second option below.</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const target = new Date(2033, 9, 3); // months are 0-based: 9 = October</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>// For a fixed Kuwait time (UTC+3, no DST), uncomment the next line and comment the one above:</p>
+<p class="p1"><span class="Apple-converted-space">    </span>// const target = new Date('2033-10-03T00:00:00+03:00');</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function daysUntil(t) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const now = new Date();</p>
+<p class="p1"><span class="Apple-converted-space">      </span>// Start-of-day (local) to show whole days remaining and update cleanly at midnight</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate());</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const msPerDay = 24 * 60 * 60 * 1000;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const diffDays = Math.max(0, Math.ceil((t - todayStart) / msPerDay));</p>
+<p class="p1"><span class="Apple-converted-space">      </span>return diffDays;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function render() {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>document.getElementById('days').textContent = daysUntil(target);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>render();</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>// Re-render just after local midnight to keep the number accurate</p>
+<p class="p1"><span class="Apple-converted-space">    </span>(function scheduleMidnightTick() {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const now = new Date();</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const next = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 1);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>setTimeout(() =&gt; { render(); scheduleMidnightTick(); }, next - now);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>})();</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/script&gt;</p>
+<p class="p1">&lt;/body&gt;</p>
+<p class="p1">&lt;/html&gt;</p>
+</body>
+</html>
